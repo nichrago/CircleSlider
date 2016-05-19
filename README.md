@@ -1,5 +1,5 @@
 # CircleSlider
-I needed a slide controller in the shape of a circle in a project I was building. Thought perhaps it could be reused so I generalized it a bit and now it's here. The class is still messy and much can be improved but that's part of why it's here.
+I needed a slide controller in the shape of a circle in a project I was building. Thought perhaps it could be reused so I generalized it a bit. The class is still messy and much can be improved but that's part of why it's here.
 
 
 Example implementation:
