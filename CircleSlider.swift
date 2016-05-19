@@ -29,9 +29,9 @@ import UIKit
 
 
 class CircleSlider: UIView {
-    //
+    
     // * editable properties *
-    //
+    
     // sizes
     var circle_diameter: CGFloat!
     var circle_width: CGFloat!
@@ -39,8 +39,8 @@ class CircleSlider: UIView {
     var touch_tolerance: CGFloat! // number of pixels +/- off the circle line that the touch will register
     // colors
     var circle_color = UIColor.darkGrayColor()
-    var touch_color = UIColor.lightGrayColor()
-    var trail_color = UIColor.whiteColor()
+    var touch_color = UIColor.grayColor()
+    var trail_color = UIColor.lightGrayColor()
     // for ease of use
     var dissappear_on_completion = false
     
@@ -67,9 +67,9 @@ class CircleSlider: UIView {
             completed_selector = selector
         }
     }
-    //
+    
     // * global variables for the class *
-    //
+    
     // circle draw objects
     private var drawn_circle: UIBezierPath!
     private var inner_circle: UIBezierPath!
@@ -86,9 +86,9 @@ class CircleSlider: UIView {
     private var circled = false
     private var left_check: CGPoint?
     private var right_check: CGPoint?
-    //
+    
     // * Get variables for convenience and delight *
-    //
+    
     var innerView: UIView? {
         // return a view in the shape and size of the inner circle
         get {
@@ -103,18 +103,18 @@ class CircleSlider: UIView {
             return innerView
         }
     }
-    //
+    
     // * Functions to start the things *
-    //
+    
     func makeSlider() -> Bool {
         // prep and draw the circle, returns false if the view is too small for the properties
         self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.0)
         if circle_width == nil { circle_width = self.frame.width / 10 }
-        if touch_diameter == nil { touch_diameter = self.frame.width / 7 }
+        if touch_diameter == nil { touch_diameter = self.frame.width / 8 }
         if touch_tolerance == nil { touch_tolerance = self.frame.width / 7 }
-        if circle_diameter == nil { circle_diameter = self.frame.width - touch_tolerance }
+        if circle_diameter == nil { circle_diameter = self.frame.width - (touch_tolerance * 2) }
         
-        if (((circle_diameter / 2) + touch_tolerance) * 2) < (self.frame.width / 2) { return false }
+        if (circle_diameter + (touch_tolerance * 2)) > (self.frame.width) { return false }
         
         circle_center = CGPointMake(self.frame.width / 2, self.frame.height / 2)
         
@@ -130,9 +130,9 @@ class CircleSlider: UIView {
         self.setNeedsDisplay()
         return true
     }
-    //
+    
     // * override the things  *
-    //
+    
     override func drawRect(rect: CGRect) {
         guard inner_circle != nil else {
             print("can't draw yet because circle beziers have not been made")
@@ -177,9 +177,9 @@ class CircleSlider: UIView {
             touchFailed()
         }
     }
-    //
+   
     // * where things happen, states get wild *
-    //
+    
     private func startTouch(atPoint point: CGPoint) {
         endTouching()
         let circlePoint = getPointOnCircle(forPoint: point)
@@ -263,9 +263,9 @@ class CircleSlider: UIView {
             else { if right_check != nil { if touch_trail.containsPoint(right_check!) { circled = true } } }
         }
     }
-    //
+    
     // * events are happening omg *
-    //
+    
     private func circleCompleted() {
         endTouching()
         if dissappear_on_completion { self.removeFromSuperview() }
@@ -280,9 +280,9 @@ class CircleSlider: UIView {
     private func touchMoved(rad: CGFloat) {
         if moved_target != nil && moved_selector != nil { moved_target!.performSelector(moved_selector!, withObject: (rad as AnyObject)) }
     }
-    //
+    
     // * helpers to help things *
-    //
+    
     private func getPointOnCircle(forPoint point: CGPoint) -> CGPoint {
         let touchPoint = CGPointMake(point.x - circle_center.x, point.y - circle_center.y)
         
@@ -322,3 +322,5 @@ class CircleSlider: UIView {
     
     // peace
 }
+
+
