@@ -322,31 +322,3 @@ class CircleSlider: UIView {
     
     // peace
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
