@@ -226,7 +226,7 @@ class CircleSlider: UIView {
         self.setNeedsDisplay()
     }
     
-    func updateTouchTrail(toPoint point: CGPoint) {
+    private func updateTouchTrail(toPoint point: CGPoint) {
         let rad = atan2(point.y - circle_center.y, point.x - circle_center.x)
         
         touchMoved(rad)
@@ -283,18 +283,18 @@ class CircleSlider: UIView {
     //
     // * helpers to help things *
     //
-    func getPointOnCircle(forPoint point: CGPoint) -> CGPoint {
+    private func getPointOnCircle(forPoint point: CGPoint) -> CGPoint {
         let touchPoint = CGPointMake(point.x - circle_center.x, point.y - circle_center.y)
         
         let touchRad = atan2(touchPoint.y, touchPoint.x)
         return pointOnCircle(forRad: touchRad, withRadius: circle_diameter / 2)
     }
     
-    func getCircleValue(hypotenus c: CGFloat, leg a: CGFloat) -> CGFloat {
+    private func getCircleValue(hypotenus c: CGFloat, leg a: CGFloat) -> CGFloat {
         return sqrt( (pow(c, 2)) - (pow(abs(a), 2)) )
     }
     
-    func getRads(withOffset offset: CGFloat, fromRad rad: CGFloat) -> (CGFloat, CGFloat) {
+    private func getRads(withOffset offset: CGFloat, fromRad rad: CGFloat) -> (CGFloat, CGFloat) {
         var leftRad: CGFloat?
         var rightRad: CGFloat?
         
@@ -314,7 +314,7 @@ class CircleSlider: UIView {
         return (leftRad!, rightRad!)
     }
     
-    func pointOnCircle(forRad rad: CGFloat, withRadius radius: CGFloat) -> CGPoint {
+    private func pointOnCircle(forRad rad: CGFloat, withRadius radius: CGFloat) -> CGPoint {
         let x = radius * cos(rad)
         let y = radius * sin(rad)
         return CGPointMake(x + circle_center.x, y + circle_center.y)
